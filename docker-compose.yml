@@ -1,87 +1,42 @@
 version: '3'
 services: 
-  auth_db:
+  products_db:
     image: 'postgres:latest'
-    container_name: 'wishlist_demo_auth_db'
+    container_name: 'nab_icommerce_db'
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: SrHbgm2PbLDnXBNN
-      POSTGRES_DB: wishlist_demo_auth
-    ports:
-      - '54321:5432'
-    networks:
-      - auth_db
-
-  auth_service:
-    build:
-      context: ./authentication-service
-      dockerfile: Dockerfile
-    image: 'wishlist_demo_auth'
-    container_name: 'wishlist_demo_auth'
-    ports:
-      - 8081:8081
-    restart: unless-stopped
-    env_file: ./authentication-service/.env
-    environment:
-      PG_URL: auth_db
-      PG_USER: postgres
-      PG_PASSWORD: SrHbgm2PbLDnXBNN
-      PG_DATABASE: wishlist_demo_auth
-      PG_PORT: 5432
-      DB_SYNC: 'true'
-    depends_on:
-      - auth_db
-    networks:
-      app:
-        aliases: 
-          - auth_service
-      auth_db:
-
-  app_db:
-    image: 'postgres:latest'
-    container_name: 'wishlist_demo_app_db'
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: SrHbgm2PbLDnXBNN
-      POSTGRES_DB: wishlist_demo_app
+      POSTGRES_DB: nab_icommerce
     ports:
       - '54320:5432'
     networks:
-      - app_db
+      - products_network
 
-  app:
+  products:
     build:
-      context: ./backend
+      context: ./products
       dockerfile: Dockerfile
-    image: 'wishlist_demo_app'
-    container_name: 'wishlist_demo_app'
+    image: 'nab_icommerce_products'
+    container_name: 'nab_icommerce_products'
     ports:
       - 8080:8080
     restart: unless-stopped
-    env_file: ./backend/.env
+    env_file: ./products/.env
     environment:
-      PG_URL: app_db
+      PG_URL: products_db
       PG_USER: postgres
       PG_PASSWORD: SrHbgm2PbLDnXBNN
-      PG_DATABASE: wishlist_demo_app
+      PG_DATABASE: nab_icommerce
       PG_PORT: 5432
       DB_SYNC: 'true'
-      AUTH_URL: http://auth_service:8081
     depends_on:
-      - app_db
-      - auth_service
+      - products_db
     networks:
-      - app
-      - app_db
-
+      - products_network
 
 
 networks: 
-  app_db:
-    driver: bridge
-  auth_db:
-    driver: bridge
-  app:
+  products_network:
     driver: bridge
 
 volumes:
