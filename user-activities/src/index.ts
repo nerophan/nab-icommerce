@@ -10,7 +10,9 @@ const app = express()
 const port = config.port
 
 //fetch db update object 
-require('./db')
+// require('./db')
+import './db'
+import './services'
 
 app.use(
   morgan((tokens, req, res) => {

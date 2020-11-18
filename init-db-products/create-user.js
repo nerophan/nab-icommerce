@@ -14,4 +14,7 @@ db.createUser(
 );
 db.createCollection('products')
 
+// index
+db.products.createIndex({ name: 'text' })
+
 print('END #################################################################');

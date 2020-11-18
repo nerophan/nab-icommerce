@@ -1,1 +1,1 @@
-export * as auth from './auth'
+import './rabbitmq'

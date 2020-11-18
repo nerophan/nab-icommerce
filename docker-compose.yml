@@ -2,13 +2,13 @@ version: '3'
 services: 
   products_db:
     image: 'mongo:latest'
-    container_name: 'nab_icommerce_db'
+    container_name: 'nab_icommerce_products_db'
     environment:
       MONGO_INITDB_ROOT_USERNAME: nab_icommerce
       MONGO_INITDB_ROOT_PASSWORD: SrHbgm2PbLDnXBNN
       MONGO_INITDB_DATABASE: nab_icommerce
     volumes:
-      - ./init-db/:/docker-entrypoint-initdb.d/
+      - ./init-db-products/:/docker-entrypoint-initdb.d/
     ports:
       - '27019:27017'
     networks:
@@ -25,20 +25,54 @@ services:
     restart: unless-stopped
     env_file: ./products/.env
     environment:
-      PG_URL: products_db
-      PG_USER: postgres
-      PG_PASSWORD: SrHbgm2PbLDnXBNN
-      PG_DATABASE: nab_icommerce
-      PG_PORT: 5432
-      DB_SYNC: 'true'
+      MONGO_URL: products_db
+      MONGO_USER: nab_icommerce
+      MONGO_PASSWORD: SrHbgm2PbLDnXBNN
+      MONGO_DB: nab_icommerce
     depends_on:
       - products_db
     networks:
       - products_network
+    
+  activities_db:
+    image: 'mongo:latest'
+    container_name: 'nab_icommerce_activities_db'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: nab_icommerce
+      MONGO_INITDB_ROOT_PASSWORD: SrHbgm2PbLDnXBNN
+      MONGO_INITDB_DATABASE: nab_icommerce
+    volumes:
+      - ./init-db-activities/:/docker-entrypoint-initdb.d/
+    ports:
+      - '27020:27017'
+    networks:
+      - activities_network
+
+  activities:
+    build:
+      context: ./user-activities
+      dockerfile: Dockerfile
+    image: 'nab_icommerce_activities'
+    container_name: 'nab_icommerce_activities'
+    ports:
+      - 8081:8080
+    restart: unless-stopped
+    env_file: ./user-activities/.env
+    environment:
+      MONGO_URL: products_db
+      MONGO_USER: nab_icommerce
+      MONGO_PASSWORD: SrHbgm2PbLDnXBNN
+      MONGO_DB: nab_icommerce
+    depends_on:
+      - activities_db
+    networks:
+      - activities_network
 
 
 networks: 
   products_network:
+    driver: bridge
+  activities_network:
     driver: bridge
 
 volumes:

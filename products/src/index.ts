@@ -10,7 +10,6 @@ const app = express()
 const port = config.port
 
 //fetch db update object 
-// require('./db')
 import './db'
 
 app.use(

@@ -29,6 +29,7 @@ export const joiObjs = {
       filter: Joi.string(),
       page: Joi.number(),
       limit: Joi.number(),
+      sort: Joi.string(),
     }),
   },
 }

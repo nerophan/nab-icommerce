@@ -1,5 +1,5 @@
 {
-  "name": "otpicks-backend",
+  "name": "nab-icommerce-products",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hoanghuynh1995/wishlist-demo.git"
+    "url": "git+https://github.com/hoanghuynh1995/nab-icommerce.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jamalh110/OTPicks-backend/issues"
+    "url": "https://github.com/hoanghuynh1995/nab-icommerce/issues"
   },
-  "homepage": "https://github.com/jamalh110/OTPicks-backend#readme",
+  "homepage": "https://github.com/hoanghuynh1995/nab-icommerce",
   "dependencies": {
     "amqplib": "^0.6.0",
     "body-parser": "^1.19.0",
@@ -32,8 +32,6 @@
     "moment": "^2.27.0",
     "morgan": "^1.10.0",
     "nanoid": "^3.1.12",
-    "pg": "^8.5.0",
-    "pg-hstore": "^2.3.3",
     "request": "^2.88.2",
     "request-promise": "^4.2.6",
     "sequelize": "^6.3.5",
