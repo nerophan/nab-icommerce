@@ -1,7 +1,7 @@
-export * as db from './connector'
-
-import Products from './models/products'
+import db from './config'
+import products from './models/products'
 
 export default {
-  Products,
+  db,
+  products,
 }

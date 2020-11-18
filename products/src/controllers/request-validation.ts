@@ -10,10 +10,8 @@ const validate = (validator, path: 'body' | 'query') => (req: Request, res: Resp
   } else if (path === 'query') {
     obj = req.query
   }
-  console.log(req.body)
   if (obj) {
     const vldRs = validator.validate(obj)
-    console.log(vldRs.error)
     if (vldRs.error) {
       const response = base(null, vldRs.error.message, 0, ERROR_CODES.JOI_VALIDATION)
       next(response)

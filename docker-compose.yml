@@ -1,14 +1,16 @@
 version: '3'
 services: 
   products_db:
-    image: 'postgres:latest'
+    image: 'mongo:latest'
     container_name: 'nab_icommerce_db'
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: SrHbgm2PbLDnXBNN
-      POSTGRES_DB: nab_icommerce
+      MONGO_INITDB_ROOT_USERNAME: nab_icommerce
+      MONGO_INITDB_ROOT_PASSWORD: SrHbgm2PbLDnXBNN
+      MONGO_INITDB_DATABASE: nab_icommerce
+    volumes:
+      - ./init-db/:/docker-entrypoint-initdb.d/
     ports:
-      - '54320:5432'
+      - '27019:27017'
     networks:
       - products_network
 

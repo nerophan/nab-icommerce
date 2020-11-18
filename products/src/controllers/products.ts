@@ -16,7 +16,17 @@ const getProducts = async (req: Request, res: Response, next: NextFunction): Pro
     limit,
     sort,
   })
-  res.send(body)
+  let products
+  try {
+    products = await db.products.create({
+      name: 'x'
+    })
+  } catch (err) {
+    console.error(err)
+    res.send({ err })
+    return
+  }
+  res.send(products)
 }
 
 class Products {

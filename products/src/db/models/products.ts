@@ -1,41 +1,25 @@
-import * as Sequelize from 'sequelize'
-const DataTypes = Sequelize.DataTypes
+import mongoose, { Document, Schema, model, Model } from 'mongoose'
 
-import connector from '../connector'
 
-class ProductModel extends Sequelize.Model {
-  id?: number;
-  user: string;
-  title: string;
-  fullname: string;
+export interface Product {
+  name: string;
 }
 
-ProductModel.init({
-  id: {
-    autoIncrement: true,
-    type: DataTypes.INTEGER(),
-    allowNull: false,
-    primaryKey: true
-  },
+// Schema
+const ProductSchema = new Schema({
   name: {
-    type: DataTypes.INTEGER(),
-    allowNull: false,
+    type: String,
+    required: true
   },
-  price: {
-    type: DataTypes.INTEGER(),
-    allowNull: false,
-  },
-  brand: {
-    type: DataTypes.STRING(255),
-    allowNull: true,
-  },
-  color: {
-    type: DataTypes.STRING(10),
-    allowNull: true,
-  },
-}, {
-  sequelize: connector,
-  tableName: 'products'
 })
 
-export default ProductModel
+interface ProductBaseDocument extends Product, Document {
+  name: string;
+}
+
+export interface ProductDocument extends ProductBaseDocument {
+}
+export interface ProductModel extends Model<ProductDocument> {
+}
+
+export default model<ProductDocument, ProductModel>('products', ProductSchema)
