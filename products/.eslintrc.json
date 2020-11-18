@@ -15,5 +15,20 @@
     "plugins": [
         "@typescript-eslint"
     ],
-    "rules": {}
+    "rules": {
+        "semi": [
+            1,
+            "never"
+        ],
+        "quotes": [
+            1,
+            "single"
+        ],
+        "@typescript-eslint/no-namespace": [
+            2,
+            {
+                "allowDeclarations": true
+            }
+        ]
+    }
 }

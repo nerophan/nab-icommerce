@@ -3,9 +3,11 @@ import { DEFAULT_LIMIT } from '../constants/query'
 export const getFilterAndPaging = query => {
   let {
     filter,
+    sort
+  } = query
+  const {
     page = 1,
     limit = DEFAULT_LIMIT,
-    sort
   } = query
   if (filter) {
     try {

@@ -11,10 +11,25 @@ const ProductSchema = new Schema({
     type: String,
     required: true
   },
+  price: {
+    type: Number,
+    required: true
+  },
+  brand: {
+    type: String,
+    required: false
+  },
+  color: {
+    type: String,
+    required: false
+  },
 })
 
 interface ProductBaseDocument extends Product, Document {
   name: string;
+  price: number;
+  brand: string;
+  color: string;
 }
 
 export interface ProductDocument extends ProductBaseDocument {
