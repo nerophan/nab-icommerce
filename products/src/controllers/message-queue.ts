@@ -27,8 +27,6 @@ const sendActivityMessage = async (req: Request): Promise<void> => {
   messageQueueService.publisher.sendActivity(activity)
 }
 
-class MessageQueue {
-  sendActivityMessage = sendActivityMessage
+export default {
+  sendActivityMessage
 }
-
-export default new MessageQueue()

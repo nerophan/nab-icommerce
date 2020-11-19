@@ -26,8 +26,8 @@ app.use(
   })
 )
 
-app.use(bodyParser.json({ limit: '100mb' }))
-app.use(bodyParser.urlencoded({ extended: true, limit: '100mb' }))
+app.use(bodyParser.json({ limit: '5mb' }))
+app.use(bodyParser.urlencoded({ extended: true, limit: '5mb' }))
 
 // setup cors
 app.use(cors())

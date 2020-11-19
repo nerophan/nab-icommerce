@@ -62,9 +62,7 @@ const getProduct = async (req: Request, res: Response, next: NextFunction): Prom
   next()
 }
 
-class Products {
-  getProducts = getProducts
-  getProduct = getProduct
+export default {
+  getProducts,
+  getProduct,
 }
-
-export default new Products() // use class for unit testing
