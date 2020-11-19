@@ -2,7 +2,7 @@
 ## Requires
 * [docker-compose](https://docs.docker.com/compose/install/)
 ## Architecture
-![Architecture](https://drive.google.com/uc?export=view&id=1x420IzBlbPIomSoLHDbjF8X6ocZ1pjTh)
+![Please click here if it does not show](https://drive.google.com/uc?export=view&id=1x420IzBlbPIomSoLHDbjF8X6ocZ1pjTh)
 ### Microservices
 1. **Products service:** all the business relates to products
 2. **User Activities service:** store activity messages from product service
