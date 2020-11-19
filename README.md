@@ -5,7 +5,7 @@
 ![Please click here if it does not show](https://drive.google.com/uc?export=view&id=1x420IzBlbPIomSoLHDbjF8X6ocZ1pjTh)
 ### Microservices
 1. **Products service:** all the business relates to products
-2. **User Activities service:** store activity messages from product service
+2. **User Activities service:** store user activities. Received as messages from product service using message queue
 ## Run application
 * Clone sample configuration files:
 > cp .env_sample .env
