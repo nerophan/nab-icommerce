@@ -4,10 +4,8 @@ services:
     image: 'rabbitmq:latest'
     container_name: 'nab_icommerce_rabbitmq'
     environment:
-      RABBITMQ_DEFAULT_USER: admin
-      RABBITMQ_DEFAULT_PASS: admin
-    ports:
-      - '5673:5672'
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
     networks:
       - main_network
 
@@ -15,10 +13,9 @@ services:
     image: 'mongo:latest'
     container_name: 'nab_icommerce_products_db'
     environment:
-      MONGO_INITDB_ROOT_USERNAME: nab_icommerce
-      MONGO_INITDB_ROOT_PASSWORD: SrHbgm2PbLDnXBNN
-      MONGO_INITDB_DATABASE: nab_icommerce
-      MONGO_PORT: 27017
+      MONGO_INITDB_ROOT_USERNAME: ${PRODUCT_DB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${PRODUCT_DB_PASSWORD}
+      MONGO_INITDB_DATABASE: ${PRODUCT_DB_DATABASE}
     volumes:
       - ./init-db-products/:/docker-entrypoint-initdb.d/
     ports:
@@ -38,10 +35,10 @@ services:
     env_file: ./products/.env
     environment:
       MONGO_URL: mongodb://products_db
-      MONGO_USER: nab_icommerce
-      MONGO_PASSWORD: SrHbgm2PbLDnXBNN
-      MONGO_DB: nab_icommerce
-      AMQP_URL: amqp://admin:admin@rabbitmq
+      MONGO_USER: ${PRODUCT_DB_USERNAME}
+      MONGO_PASSWORD: ${PRODUCT_DB_PASSWORD}
+      MONGO_DB: ${PRODUCT_DB_DATABASE}
+      AMQP_URL: amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@rabbitmq
     depends_on:
       - products_db
       - rabbitmq
@@ -53,9 +50,9 @@ services:
     image: 'mongo:latest'
     container_name: 'nab_icommerce_activities_db'
     environment:
-      MONGO_INITDB_ROOT_USERNAME: nab_icommerce
-      MONGO_INITDB_ROOT_PASSWORD: SrHbgm2PbLDnXBNN
-      MONGO_INITDB_DATABASE: nab_icommerce
+      MONGO_INITDB_ROOT_USERNAME: ${ACTIVITIES_DB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${ACTIVITIES_DB_PASSWORD}
+      MONGO_INITDB_DATABASE: ${ACTIVITIES_DB_DATABASE}
     volumes:
       - ./init-db-activities/:/docker-entrypoint-initdb.d/
     ports:
@@ -75,10 +72,10 @@ services:
     env_file: ./user-activities/.env
     environment:
       MONGO_URL: mongodb://activities_db
-      MONGO_USER: nab_icommerce
-      MONGO_PASSWORD: SrHbgm2PbLDnXBNN
-      MONGO_DB: nab_icommerce
-      AMQP_URL: amqp://admin:admin@rabbitmq
+      MONGO_USER: ${ACTIVITIES_DB_USERNAME}
+      MONGO_PASSWORD: ${ACTIVITIES_DB_PASSWORD}
+      MONGO_DB: ${ACTIVITIES_DB_DATABASE}
+      AMQP_URL: amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@rabbitmq
     depends_on:
       - activities_db
       - rabbitmq
