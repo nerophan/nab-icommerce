@@ -6,12 +6,18 @@ import { ISendActivityMessageState } from './message-queue'
 import { Activities } from '../types'
 
 const getProducts = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  const requestQuery = {
+    filter: req.query.filter?.toString(),
+    page: req.query.page?.toString(),
+    limit: req.query.limit?.toString(),
+    sort: req.query.sort?.toString(),
+  }
   const {
     filter,
     page,
     limit,
     sort,
-  } = commonUtils.getFilterAndPaging(req.query)
+  } = commonUtils.getFilterAndPaging(requestQuery)
   const query: {
     price?: number,
     brand?: string,

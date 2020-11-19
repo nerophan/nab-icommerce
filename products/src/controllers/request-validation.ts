@@ -1,6 +1,6 @@
 import Joi from 'joi'
 import { Request, Response, NextFunction } from 'express'
-import { error_codes as ERROR_CODES } from '../constants'
+import { errorCodes as ERROR_CODES } from '../constants'
 import base from '../entities/base'
 
 const validate = (validator, path: 'body' | 'query') => (req: Request, res: Response, next: NextFunction): Promise<void> => {
