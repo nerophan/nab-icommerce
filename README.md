@@ -32,3 +32,6 @@ Sample
     "email": "huynhph95@gmail.com",
     "password": "123456"
 }'`
+
+### Notes
+*Seed database and database authentication information is initiated by scripts in **init-db-activities/** and **init-db-products/** directories. If you want to edit these data, edit these file and update environment variables in **.env** (copied from .env_sample sample file) file in root directory according to changes*
