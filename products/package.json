@@ -4,7 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "test": "mocha -r ts-node/register test/**/*.spec.ts",
+    "test": "TS_NODE_FILES=true mocha -r ts-node/register --timeout 10000 test/**/*.spec.ts",
     "restart": "pm2 restart app",
     "compile": "tsc && node dist/index",
     "dev": "nodemon -e ts --exec \"npm run compile\"",
