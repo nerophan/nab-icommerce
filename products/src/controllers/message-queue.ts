@@ -19,7 +19,7 @@ const sendActivityMessage = async (req: Request): Promise<void> => {
     url: req.originalUrl
   }
   const activity: Activities.IActivity = {
-    type: activityType,
+    type: Activities.TYPES[activityType],
     ip: ip.toString(),
     agent,
     data,

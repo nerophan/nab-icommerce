@@ -4,7 +4,7 @@ export enum TYPES {
 }
 
 export interface IActivity {
-  type: TYPES
+  type: string
   data?: unknown
   ip?: string
   agent?: string
