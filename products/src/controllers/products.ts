@@ -2,7 +2,8 @@ import { Request, Response, NextFunction } from 'express'
 import base from '../entities/base'
 import db from '../db'
 import { common as commonUtils } from '../utils'
-import { QueryCursor } from 'mongoose'
+import { ISendActivityMessageState } from './message-queue'
+import { Activities } from '../types'
 
 const getProducts = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const {
@@ -27,17 +28,43 @@ const getProducts = async (req: Request, res: Response, next: NextFunction): Pro
       .limit(limit)
       .skip((page - 1) * limit)
       .sort(sort)
-    products.length
   } catch (err) {
     console.error(err)
     res.send({ err })
     return
   }
-  res.send(products)
+  res.send(base(products))
+  // send activity message
+  const state: ISendActivityMessageState = {
+    activityType: Activities.TYPES.SEARCH_PRODUCTS
+  }
+  req.state = state
+  next()
+}
+const getProduct = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  const {
+    id
+  } = req.params
+  let product
+  try {
+    product = await db.products.findById(id)
+  } catch (err) {
+    console.error(err)
+    res.send({ err })
+    return
+  }
+  res.send(base(product))
+  // send activity message
+  const state: ISendActivityMessageState = {
+    activityType: Activities.TYPES.VIEW_PRODUCT
+  }
+  req.state = state
+  next()
 }
 
 class Products {
   getProducts = getProducts
+  getProduct = getProduct
 }
 
 export default new Products() // use class for unit testing

@@ -1,24 +1,29 @@
 import { Document, Schema, model, Model } from 'mongoose'
 
-enum ActivityType {
-  SEARCH_PRODUCTS,
-  FILTER_PRODUCTS,
-  VIEW_PRODUCTS,
-}
 export interface Activity {
-  type: ActivityType;
-  data: unknown;
+  type: string
+  data: unknown
+  ip: string
+  agent: string
 }
 
 // Schema
 const ActivitySchema = new Schema({
   type: {
     type: String,
-    required: true
+    required: true,
   },
   data: {
     type: Object,
-    required: true
+    required: false
+  },
+  ip: {
+    type: String,
+    required: false
+  },
+  agent: {
+    type: String,
+    required: false
   },
 }, {
   timestamps: true
@@ -26,7 +31,6 @@ const ActivitySchema = new Schema({
 
 interface ActivityBaseDocument extends Activity, Document {
 }
-
 export interface ActivityDocument extends ActivityBaseDocument {
 }
 export interface ActivityModel extends Model<ActivityDocument> {

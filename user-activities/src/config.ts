@@ -9,7 +9,6 @@ export default {
     user: process.env.MONGO_USER,
     password: process.env.MONGO_PASSWORD,
     database: process.env.MONGO_DB,
-    port: process.env.MONGO_PORT,
   },
   amqp: {
     url: process.env.AMQP_URL,

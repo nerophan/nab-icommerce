@@ -1,5 +1,16 @@
 version: '3'
 services: 
+  rabbitmq:
+    image: 'rabbitmq:latest'
+    container_name: 'nab_icommerce_rabbitmq'
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
+    ports:
+      - '5673:5672'
+    networks:
+      - main_network
+
   products_db:
     image: 'mongo:latest'
     container_name: 'nab_icommerce_products_db'
@@ -7,6 +18,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: nab_icommerce
       MONGO_INITDB_ROOT_PASSWORD: SrHbgm2PbLDnXBNN
       MONGO_INITDB_DATABASE: nab_icommerce
+      MONGO_PORT: 27017
     volumes:
       - ./init-db-products/:/docker-entrypoint-initdb.d/
     ports:
@@ -25,14 +37,17 @@ services:
     restart: unless-stopped
     env_file: ./products/.env
     environment:
-      MONGO_URL: products_db
+      MONGO_URL: mongodb://products_db
       MONGO_USER: nab_icommerce
       MONGO_PASSWORD: SrHbgm2PbLDnXBNN
       MONGO_DB: nab_icommerce
+      AMQP_URL: amqp://admin:admin@rabbitmq
     depends_on:
       - products_db
+      - rabbitmq
     networks:
       - products_network
+      - main_network
     
   activities_db:
     image: 'mongo:latest'
@@ -59,20 +74,25 @@ services:
     restart: unless-stopped
     env_file: ./user-activities/.env
     environment:
-      MONGO_URL: products_db
+      MONGO_URL: mongodb://activities_db
       MONGO_USER: nab_icommerce
       MONGO_PASSWORD: SrHbgm2PbLDnXBNN
       MONGO_DB: nab_icommerce
+      AMQP_URL: amqp://admin:admin@rabbitmq
     depends_on:
       - activities_db
+      - rabbitmq
     networks:
       - activities_network
+      - main_network
 
 
 networks: 
   products_network:
     driver: bridge
   activities_network:
+    driver: bridge
+  main_network:
     driver: bridge
 
 volumes:

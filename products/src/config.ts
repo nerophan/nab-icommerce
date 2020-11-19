@@ -12,4 +12,8 @@ export default {
     port: process.env.MONGO_PORT,
     sync: process.env.DB_SYNC,
   },
+  amqp: {
+    url: process.env.AMQP_URL,
+    activitiesQueue: process.env.QUEUE_NAME_ACTIVITIES,
+  },
 }

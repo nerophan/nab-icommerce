@@ -5,10 +5,11 @@ import config from '../../../config'
 interface IConnection {
   createChannel: Function
 }
-interface IChannel {
+export interface IChannel {
   assertQueue: Function
   consume: Function
-  ack: Function
+  ack: Function,
+  sendToQueue: Function,
 }
 class Connection {
   connectionPromise: Promise<IConnection>
@@ -27,16 +28,18 @@ class Connection {
           return reject(err)
         }
         console.log('amqp connected!')
-        this.createChannel(conn)
         return resolve(conn)
       })
     })
-  }
-  createChannel(conn: IConnection) {
     this.channelPromise = new Promise<IChannel>((resolve, reject) => {
-      conn.createChannel((err, ch) => {
-        if (err) return reject(err)
-        return resolve(ch)
+      this.connectionPromise.then(conn => {
+        conn.createChannel((err, ch) => {
+          if (err) return reject(err)
+          return resolve(ch)
+        })
+      }).catch(err => {
+        console.error('Error on amqp connection:', err)
+        reject(err)
       })
     })
   }

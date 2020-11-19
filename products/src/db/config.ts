@@ -2,8 +2,12 @@ import mongoose from 'mongoose'
 import config from '../config'
 
 console.log(config)
-const mongoUri = `mongodb://${config.db.user}:${config.db.password}@${config.db.url}${config.db.port ? `:${config.db.port}` : ''}/${config.db.database}`
-mongoose.connect(mongoUri, { autoIndex: false })
+const mongoUri = `${config.db.url}/${config.db.database}`
+mongoose.connect(mongoUri, {
+  autoIndex: false,
+  user: config.db.user,
+  pass: config.db.password
+})
 
 const db = mongoose.connection
 

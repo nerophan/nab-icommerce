@@ -1,8 +1,10 @@
 export interface IMessage {
-  content: String
+  content: string
 }
 
 export interface IContent {
-  type: String
+  type: string
   data: unknown
+  ip: string
+  agent: string
 }
