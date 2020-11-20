@@ -6,7 +6,6 @@ chai.use(chaiHttp)
 const expect = chai.expect
 
 import app from '../src'
-import { Product } from '../src/db/models/products'
 
 let productId
 describe('GET: /v1/products', () => {
