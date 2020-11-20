@@ -1,8 +1,10 @@
 import mongoose, { Document, Schema, model, Model } from 'mongoose'
 
-
 export interface Product {
-  name: string;
+  name: string
+  price: number
+  brand: string
+  color: string
 }
 
 // Schema
