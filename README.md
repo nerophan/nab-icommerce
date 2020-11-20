@@ -44,15 +44,20 @@ curl --location --request POST 'http://localhost:8081/v1/users/login' \
 ## Test
 ### **Products service**
 #### Requires:
-Start necessary services
+Start necessary services. This may take several seconds to fully start.
 ```
 > docker-compose up -d rabbitmq products_db
 ```
-
-This may take several seconds to fully start
+Have environment config for products service if not exist
+```
+> cp products/.env_sample products/.env
+``` 
 #### Run test cases
 ```
 > cd products
+```
+```
+> cp .env_sample .env
 ```
 ```
 > npm test
