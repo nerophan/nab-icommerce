@@ -12,7 +12,6 @@ router
     messageQueueController.sendActivityMessage
   )
   .get('/:id',
-    validatorController.validate(joiObjs.products.list, 'query'),
     productController.getProduct,
     messageQueueController.sendActivityMessage
   )

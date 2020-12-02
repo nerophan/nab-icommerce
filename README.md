@@ -33,12 +33,7 @@ curl --location --request GET 'http://localhost:8080/v1/products?filter=%7B%22na
 Sample
 
 ```
-curl --location --request POST 'http://localhost:8081/v1/users/login' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "email": "huynhph95@gmail.com",
-    "password": "123456"
-}'
+curl --location --request GET 'http://localhost:8080/v1/products/5fc7100a81a9cc348860ed7b'
 ```
 
 ## Test
